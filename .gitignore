@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# General directories
+build/
+tests/
+
+# Generated files
+*.o
+*.out
+*.cgen
+*.exe
+*.c~
+
+# Project
+ash
+run
