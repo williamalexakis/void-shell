@@ -62,11 +62,11 @@ static int builtin_help(int argc, char **argv) {
     (void)argc;
     (void)argv;
 
-    printf("Ash builtin commands:");
-    printf("cd <optional: path>    Change directory to a specified path; no path changes to HOME directory.");
-    printf("echo <message>         Print a specified message in the standard output.");
-    printf("help                   Display all builtin commands and their uses.");
-    printf("exit                   Exit the shell.");
+    printf("Ash builtin commands:\n");
+    printf("cd <optional: path>    Change directory to a specified path; no path changes to HOME directory.\n");
+    printf("echo <message>         Print a specified message in the standard output.\n");
+    printf("help                   Display all builtin commands and their uses.\n");
+    printf("exit                   Exit the shell.\n");
 
     return 0;
 
