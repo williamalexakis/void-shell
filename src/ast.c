@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "ast.h"
 #include "utils.h"
 
@@ -172,30 +173,50 @@ void free_ast(AstSequence *sequence) {
 
 }
 
-static void print_indent(int depth) {
+static void print_indent(int depth) { for (int i = 0; i < depth; i++) printf("    "); }
 
-    for (int i = 0; i < depth; i++) printf("    ");
+static void uppercase_copy(char *dest, const char *src, size_t cap) {
+
+    size_t i;
+
+    for (i = 0; src[i] && i + 1 < cap; i++) dest[i] = toupper((unsigned char)src[i]);
+
+    dest[i] = '\0';
 
 }
 
 void print_ast_command(const AstCommand *command, int depth) {
 
-    printf("COMMAND [");
+    char name_buffer[128];
 
-    for (size_t i = 0; i < command->argc; i++) {
+    uppercase_copy(name_buffer, command->argv[0], sizeof(name_buffer));
+    printf("COMMAND (%s)", name_buffer);
 
-        printf("\"%s\"", command->argv[i]);
+    if (command->argc > 1) {
 
-        if (i + 1 < command->argc) printf(", ");
+        printf(" [");
+
+        for (size_t i = 1; i < command->argc; i++) {
+
+            printf("\"%s\"", command->argv[i]);
+
+            if (i + 1 < command->argc) printf(", ");
+
+        }
+
+        printf("]");
 
     }
 
-    printf("]\n");
+    printf("\n");
 
     if (command->redir.type != REDIR_NONE) {
 
         print_indent(depth + 1);
-        printf("╰ REDIRECTION (%s) [\"%s\"]\n", command->redir.type == REDIR_TRUNC ? ">" : ">>", command->redir.path);
+
+        const char *r_type = (command->redir.type == REDIR_TRUNC ? "OUT" : "APPEND");
+
+        printf("╰ REDIRECTION (%s) [\"%s\"]\n", r_type, command->redir.path);
 
     }
 
@@ -203,11 +224,9 @@ void print_ast_command(const AstCommand *command, int depth) {
 
 void print_ast_pipeline(const AstPipeline *pipeline, int depth) {
 
-    printf("PIPELINE\n");
-
     for (size_t i = 0; i < pipeline->count; i++) {
 
-        print_indent(depth + 1);
+        print_indent(depth);
         printf("╰ ");
         print_ast_command(pipeline->commands[i], depth + 1);
 
@@ -223,8 +242,8 @@ void print_ast_sequence(const AstSequence *sequence, int depth) {
     for (size_t i = 0; i < sequence->count; i++) {
 
         print_indent(depth + 1);
-        printf("╰ ");
-        print_ast_pipeline(sequence->pipelines[i], depth + 1);
+        printf("╰ PIPELINE\n");
+        print_ast_pipeline(sequence->pipelines[i], depth + 2);
 
     }
 

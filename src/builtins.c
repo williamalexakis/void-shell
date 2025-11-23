@@ -6,7 +6,6 @@
 #include "lexer.h"
 #include "parser.h"
 #include "ast.h"
-#include "utils.h"
 
 /* cd command */
 static int builtin_cd(int argc, char **argv) {
