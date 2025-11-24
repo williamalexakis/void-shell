@@ -1,8 +1,8 @@
-# Ash
+# Anew Shell
 
 ## Overview
 
-Ash, or Anew Shell, is a simple, custom Unix-style shell focusing on speed, minimalism, and clarity.
+Anew Shell, or Ash, is a simple, custom Unix-style shell focusing on speed, minimalism, and clarity.
 
 ## Features
 
