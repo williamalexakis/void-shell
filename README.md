@@ -1,8 +1,8 @@
-# Anew Shell
+# Void Shell
 
 ## Overview
 
-Void Shell, or Vsh, is a simple, custom Unix-style shell focusing on speed, minimalism, and clarity.
+Void Shell, or Vsh, is a custom, simple Unix-style shell focusing on speed, minimalism, and clarity.
 
 ## Features
 
@@ -65,7 +65,7 @@ SEQUENCE
 1. Clone the repo:
     ```sh
     git clone https://github.com/williamalexakis/void-shell.git
-    cd ash
+    cd void-shell
     ```
     
 2. Build the project:
